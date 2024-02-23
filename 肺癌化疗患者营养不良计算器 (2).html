@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>肺癌化疗患者营养不良计算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>膀胱癌患者发生FT计算器</h2>
+
+    <label for="working_status">工作状态：</label>
+    <select id="working_status">
+        <option value="0">在职</option>
+        <option value="47">退休</option>
+        <option value="50">失业</option>
+    </select>
+
+    <label for="monthly_income">家庭人均月收入（元）：</label>
+    <select id="monthly_income">
+        <option value="0">＞5000</option>
+        <option value="37">3000-5000</option>
+        <option value="45">1500-3000</option>
+        <option value="60">＜1500</option>
+    </select>
+
+    <label for="borrow_for_treatment">因治疗借贷：</label>
+    <select id="borrow_for_treatment">
+        <option value="0">否</option>
+        <option value="35">是</option>
+    </select>
+
+    <label for="distance_to_hospital">与医疗机构距离用时：</label>
+    <select id="distance_to_hospital">
+        <option value="0">＜0.5h</option>
+        <option value="55">0.5-1h</option>
+        <option value="63">＞1h</option>
+    </select>
+
+    <label for="payment_method">付费方式：</label>
+    <select id="payment_method">
+        <option value="0">省医保</option>
+        <option value="22">商业医保</option>
+        <option value="57">职工医保</option>
+        <option value="70">居民医保</option>
+        <option value="96">自费</option>
+    </select>
+
+    <label for="chemotherapy">是否接受化疗：</label>
+    <select id="chemotherapy">
+        <option value="0">否</option>
+        <option value="35">是</option>
+    </select>
+    <label for="self_efficiency">慢病自我效能：</label>
+    <p>备注：正常范围为1-10分</p>
+    <select id="self_efficiency">
+        <option value="0">9</option>
+        <option value="12">8</option>
+        <option value="27">7</option>
+        <option value="40">6</option>
+        <option value="55">5</option>
+        <option value="68">4</option>
+        <option value="84">3</option>
+    </select>
+    <button onclick="calculateNutrition()">计算</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    function calculateNutrition() {
+        var workingStatus = parseInt(document.getElementById('working_status').value);
+        var monthlyIncome = parseInt(document.getElementById('monthly_income').value);
+        var borrowForTreatment = parseInt(document.getElementById('borrow_for_treatment').value);
+        var distanceToHospital = parseInt(document.getElementById('distance_to_hospital').value);
+        var paymentMethod = parseInt(document.getElementById('payment_method').value);
+        var chemotherapy = parseInt(document.getElementById('chemotherapy').value);
+        var selfEfficiency = parseInt(document.getElementById('self_efficiency').value);
+
+        var totalScore = workingStatus + monthlyIncome + borrowForTreatment + distanceToHospital + paymentMethod + chemotherapy + selfEfficiency;
+
+        var percentage;
+        if (totalScore >= 150 && totalScore <= 200) {
+            percentage = "10%-30%";
+        } else if (totalScore >= 201 && totalScore <= 230) {
+            percentage = "31%-50%";
+        } else if (totalScore >= 231 && totalScore <= 250) {
+            percentage = "51%-70%";
+        } else if (totalScore >= 251 && totalScore <= 300) {
+            percentage = "71%-90%";
+        } else if (totalScore > 300) {
+            percentage = "90%以上";
+        } else {
+            percentage = "无效输入";
+        }
+
+        document.getElementById('result').innerHTML = "总分: " + totalScore + "<br>发生风险比例: " + percentage;
+    }
+</script>
+</body>
+</html>
